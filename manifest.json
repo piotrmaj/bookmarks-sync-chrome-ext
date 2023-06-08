@@ -1,6 +1,6 @@
 {
-  "name": "My Bookmarks",
-  "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
+  "name": "Bookmarks Importer",
+  "description": "A browser action which imports bookmarks from static json file to folder in bookmark bar",
   "version": "1.1",
   "manifest_version": 3,
   "background": {
@@ -8,7 +8,7 @@
   },
   "permissions": ["bookmarks", "notifications", "alarms"],
   "action": {
-    "default_title": "My Bookmarks",
+    "default_title": "Bookmarks Importer",
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   }
