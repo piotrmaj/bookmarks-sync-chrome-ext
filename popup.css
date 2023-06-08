@@ -1,0 +1,15 @@
+body {
+  /* width: 400px;
+  min-height: 150px; */
+  background-color: black;
+}
+
+#import {
+  text-align: center;
+  height: 100px;
+  width: 300px;
+}
+
+#editdialog input {
+  width: 100%;
+}
