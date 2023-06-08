@@ -12,12 +12,6 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
     });
 });
 
-chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
-    console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId);
-    await ReImport();
-    sendResponse("Gotcha!");
-});
-
 chrome.alarms.onAlarm.addListener(async function (alarm) {
     console.log('onAlarm', alarm);
     if (alarm.name != 'sync-bookmarks-alarm') {
@@ -25,6 +19,17 @@ chrome.alarms.onAlarm.addListener(async function (alarm) {
     }
     await ReImport();
 })
+
+chrome.runtime.onStartup.addListener(async () => {
+  console.log('open');
+  await ReImport();
+})
+
+chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
+    console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId);
+    await ReImport();
+    sendResponse("Gotcha!");
+});
 
 async function ReImport() {
     const remoteBookmarks = await getRemoteBookmarks();
