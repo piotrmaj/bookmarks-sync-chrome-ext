@@ -1,25 +1,3 @@
-chrome.runtime.onInstalled.addListener(async ({ reason }) => {
-    console.log('onInstalled.addListener', reason);
-    if (reason !== chrome.runtime.OnInstalledReason.INSTALL) {
-        //return;
-    }
-
-    await chrome.alarms.clearAll();
-    // Create an alarm so we have something to look at in the demo
-    chrome.alarms.create('sync-bookmarks-alarm', {
-        delayInMinutes: 0,
-        periodInMinutes: 1
-    });
-});
-
-chrome.alarms.onAlarm.addListener(async function (alarm) {
-    console.log('onAlarm', alarm);
-    if (alarm.name != 'sync-bookmarks-alarm') {
-        return;
-    }
-    await ReImport();
-})
-
 chrome.runtime.onStartup.addListener(async () => {
   console.log('open');
   await ReImport();

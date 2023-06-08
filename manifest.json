@@ -6,7 +6,7 @@
   "background": {
     "service_worker": "bg-wrapper.js"
   },
-  "permissions": ["bookmarks", "notifications", "alarms"],
+  "permissions": ["bookmarks", "notifications"],
   "action": {
     "default_title": "Bookmarks Importer",
     "default_icon": "icon.png",
