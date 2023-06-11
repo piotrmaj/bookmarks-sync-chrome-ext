@@ -1,15 +1,20 @@
 chrome.runtime.onStartup.addListener(async () => {
-  console.log('open');
-  await ReImport();
+  console.log('onStartup');
+  await ReImport('onStartup');
 })
+
+chrome.bookmarks.onImportEnded.addListener(async () => {
+  console.log('bookmarks.onImportEnded');
+  await ReImport('onImportEnded');
+});
 
 chrome.runtime.onMessage.addListener(async function(msg, sender, sendResponse) {
     console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId);
-    await ReImport();
+    await ReImport('click');
     sendResponse("Gotcha!");
 });
 
-async function ReImport() {
+async function ReImport(source) {
     const remoteBookmarks = await getRemoteBookmarks();
     console.log('remoteBookmarks', remoteBookmarks);
     const { existingImport, bookmarksBar } = await getExistingImport();
@@ -22,12 +27,12 @@ async function ReImport() {
     for (const remoteBookmark of remoteBookmarks) {
         await createRecursive(remoteBookmark, created.id);
     }
-    await chrome.notifications.create({
-        type: "basic",
-        iconUrl: "icon.png",
-        title: "Sync finished!",
-        message: `at ${new Date().toISOString()}`,
-    });
+    // await chrome.notifications.create({
+    //     type: "basic",
+    //     iconUrl: "icon.png",
+    //     title: `Sync finished! ${source}`,
+    //     message: `at ${new Date().toISOString()}`,
+    // });
 }
 
 
